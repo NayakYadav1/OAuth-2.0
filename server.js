@@ -40,17 +40,27 @@ app.get("/google/callback", async (req, res) => {
     client_secret: GOOGLE_CLIENT_SECRET,
     redirect_uri: "http://localhost:8000/google/callback",
     grant_type: "authorization_code",
-  }
+  };
 
   console.log(data);
 
-//   exchange authorization code for access token & id_token
+  //   exchange authorization code for access token & id_token
   const response = await fetch(GOOGLE_ACCESS_TOKEN_URL, {
     method: "POST",
     body: JSON.stringify(data),
   });
 
   const access_token_data = await response.json();
+
+  const { id_token } = access_token_data;
+
+  console.log(id_token);
+
+//   Verify and extract the information in the id token
+const token_info_response = await fetch(
+    `${process.env.GOOGLE_TOKEN_INFO_URL}?id_token=${id_token}`
+)
+res.status(token_info_response.status).json(await token_info_response.json())
 });
 
 const port = process.env.PORT || 8000;
