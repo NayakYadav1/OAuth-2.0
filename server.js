@@ -111,7 +111,7 @@ app.get("/google/callback", async (req, res) => {
     `${process.env.GOOGLE_TOKEN_INFO_URL}?id_token=${id_token}`
   );
 
-  const token_info_data = await token_info_response.json(); // <-- Fix: Store response
+  const token_info_data = await token_info_response.json();
 
   console.log("Token Info Data:", token_info_data);
 
