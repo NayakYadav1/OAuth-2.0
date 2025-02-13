@@ -1,6 +1,6 @@
-const dotenv = require("dotenv");
-const express = require("express");
-const fetch = require("node-fetch");
+import * as dotenv from "dotenv";
+import express from "express";
+import fetch from "node-fetch";
 
 dotenv.config();
 
@@ -20,8 +20,7 @@ const GOOGLE_OAUTH_SCOPES = [
 app.get("/", async (req, res) => {
   const state = "some_state";
   const scopes = GOOGLE_OAUTH_SCOPES.join(" ");
-  const GOOGLE_OAUTH_CONSENT_SCREEN_URL = `${GOOGLE_OAUTH_URL} ?
-  client_id = ${GOOGLE_CLIENT_ID} & redirect_uri = ${GOOGLE_CALLBACK_URL} & accress_type = offline&response_type = code&state = ${state} &scope = ${scopes}`;
+  const GOOGLE_OAUTH_CONSENT_SCREEN_URL = `${GOOGLE_OAUTH_URL}?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_CALLBACK_URL}&accress_type=offline&response_type=code&state=${state}&scope=${scopes}`;
   res.redirect(GOOGLE_OAUTH_CONSENT_SCREEN_URL);
 });
 
