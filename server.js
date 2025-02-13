@@ -8,6 +8,7 @@ const app = express();
 
 app.use(express.json());
 
+// Redirect the user to the Google OAuth Consent Screen
 const GOOGLE_OAUTH_URL = process.env.GOOGLE_OAUTH_URL;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CALLBACK_URL = "http%3A//localhost:8000/google/callback";
@@ -24,8 +25,32 @@ app.get("/", async (req, res) => {
   res.redirect(GOOGLE_OAUTH_CONSENT_SCREEN_URL);
 });
 
+// Handle the OAuth 2.0 server response
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const GOOGLE_ACCESS_TOKEN_URL = process.env.GOOGLE_ACCESS_TOKEN_URL;
+
 app.get("/google/callback", async (req, res) => {
-  res.send("Google OAuth Callback Url!");
+  console.log(req.query);
+
+  const { code } = req.query;
+
+  const data = {
+    code,
+    client_id: GOOGLE_CLIENT_ID,
+    client_secret: GOOGLE_CLIENT_SECRET,
+    redirect_uri: "http://localhost:8000/google/callback",
+    grant_type: "authorization_code",
+  }
+
+  console.log(data);
+
+//   exchange authorization code for access token & id_token
+  const response = await fetch(GOOGLE_ACCESS_TOKEN_URL, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+
+  const access_token_data = await response.json();
 });
 
 const port = process.env.PORT || 8000;
