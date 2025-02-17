@@ -4,6 +4,13 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+export const google = ("/google", async (req, res) => {
+  const state = "some_state";
+  const scopes = process.env.GOOGLE_OAUTH_SCOPES.join(" ");
+  const GOOGLE_OAUTH_CONSENT_SCREEN_URL = `${GOOGLE_OAUTH_URL}?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_CALLBACK_URL}&accress_type=offline&response_type=code&state=${state}&scope=${scopes}`;
+  res.redirect(GOOGLE_OAUTH_CONSENT_SCREEN_URL);
+});
+
 export const googleAuth = async (req, res) => {
   const { code } = req.query;
 

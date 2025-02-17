@@ -22,5 +22,5 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 
 // Server listening
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
