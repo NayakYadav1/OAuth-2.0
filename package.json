@@ -2,12 +2,9 @@
   "name": "oauth-2.0",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "index.js",
   "scripts": {
-    "server": "cd backend && nodemon server.js",
-    "client": "cd frontend/frontend && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -16,13 +13,9 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.10.0",
+    "mongoose": "^8.10.1",
     "morgan": "^1.10.0",
     "node-fetch": "^3.3.2",
     "winston": "^3.17.0"
-  },
-  "devDependencies": {
-    "concurrently": "^9.1.2",
-    "nodemon": "^3.1.9"
   }
 }
